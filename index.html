@@ -43,7 +43,14 @@
             <option value="Februarie">Februarie</option>
             <option value="Martie">Martie</option>
             <option value="Aprilie">Aprilie</option>
-            <!-- Poți adăuga mai multe luni -->
+            <option value="Mai">Mai</option>
+            <option value="Iunie">Iunie</option>
+            <option value="Iulie">Iulie</option>
+            <option value="August">August</option>
+            <option value="Septembrie">Septembrie</option>
+            <option value="Octombrie">Octombrie</option>
+            <option value="Noiembrie">Noiembrie</option>
+            <option value="Decembrie">Decembrie</option>
         </select>
     </div>
 
@@ -202,7 +209,7 @@
         doc.addImage('adm_logo.png', 'PNG', 170, 10, 30, 30);
 
         doc.text("Raport Engagement - Formular 2025", 10, 10);
-        doc.text("Total colegii implicați: " + persoane.length, 10, 20);
+        doc.text("Total persoane implicate: " + persoane.length, 10, 20);
 
         let y = 30;
         for (let i = 0; i < persoane.length; i++) {
