@@ -192,4 +192,18 @@
         const doc = new jsPDF();
 
         doc.text("Raport Engagement - Ianuarie 2025", 10, 10);
-        doc.text("Total persoane: " + persoane.length, 10, 
+        doc.text("Total persoane: " + persoane.length, 10, 20);
+
+        let y = 30;
+        for (let i = 0; i < persoane.length; i++) {
+            let persoana = persoane[i];
+            doc.text(`${persoana.nume} (${persoana.luna}) - Total implicări: ${persoana.implicari}, Colegi implicați: ${persoana.colegiImplicati}`, 10, y);
+            y += 10;
+        }
+
+        doc.save('raport_engagement.pdf');
+    }
+</script>
+
+</body>
+</html>
