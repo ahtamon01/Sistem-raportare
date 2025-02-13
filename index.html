@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engagement Formular Ianuarie 2025</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         table, th, td {
             border: 1px solid black;
@@ -18,13 +19,33 @@
             margin: auto;
             padding: 20px;
         }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Engagement Ianuarie 2025</h1>
+    <h1>Engagement Formular Ianuarie 2025</h1>
     <form action="#" method="post">
+        <div>
+            <label for="luna">Selectează Luna:</label>
+            <select id="luna" name="luna">
+                <option value="Ianuarie">Ianuarie</option>
+                <option value="Februarie">Februarie</option>
+                <option value="Martie">Martie</option>
+                <option value="Aprilie">Aprilie</option>
+                <!-- Poți adăuga mai multe luni -->
+            </select>
+        </div>
+        
+        <div>
+            <label for="nume">Numele persoanei:</label>
+            <input type="text" id="nume" name="nume" required>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -107,11 +128,20 @@
                 </tr>
             </tbody>
         </table>
+
         <button type="button" onclick="calculeazaTotal()">Calculează</button>
+        <button type="button" onclick="adaugaPersoana()">Adaugă persoană</button>
+        <br><br>
     </form>
+
+    <h2>Total persoane introduse: <span id="totalPersoane">0</span></h2>
+
+    <button type="button" onclick="exportaPDF()">Exportă PDF</button>
 </div>
 
 <script>
+    var persoane = [];
+
     function calculeazaTotal() {
         var totalImplicari = 0;
         var totalCollegi = 0;
@@ -129,7 +159,37 @@
         document.getElementById('totalImplicari').value = totalImplicari;
         document.getElementById('totalCollegi').value = totalCollegi;
     }
-</script>
 
-</body>
-</html>
+    function adaugaPersoana() {
+        var nume = document.getElementById('nume').value;
+        var luna = document.getElementById('luna').value;
+        if (nume === '') {
+            alert("Te rog să introduci un nume.");
+            return;
+        }
+
+        var implicari = 0;
+        var colegiImplicati = 0;
+        for (var i = 1; i <= 16; i++) {
+            implicari += parseInt(document.querySelector(`[name='activitate${i}']`).value) || 0;
+            if (parseInt(document.querySelector(`[name='activitate${i}']`).value) > 0) {
+                colegiImplicati++;
+            }
+        }
+
+        persoane.push({ nume, luna, implicari, colegiImplicati });
+        document.getElementById('totalPersoane').textContent = persoane.length;
+        
+        // Clear the form for next person
+        document.getElementById('nume').value = '';
+        for (var i = 1; i <= 16; i++) {
+            document.querySelector(`[name='activitate${i}']`).value = 0;
+        }
+    }
+
+    function exportaPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.text("Raport Engagement - Ianuarie 2025", 10, 10);
+        doc.text("Total persoane: " + persoane.length, 10, 
