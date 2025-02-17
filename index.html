@@ -3,162 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engagement Formular 2025</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <title>Engagement Model Excel - Ianuarie 2025</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
+        table {
+            width: 100%;
             border-collapse: collapse;
         }
         th, td {
+            border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
+        th {
+            background-color: #f2f2f2;
         }
-        input[type="text"], input[type="number"], select {
-            width: 100%;
-            padding: 5px;
-        }
-        #admLogo {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 50px;
+        .header-row th {
+            text-align: left;
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>Engagement Formular 2025</h1>
-    
-    <div>
-        <label for="luna">Selectează Luna:</label>
-        <select id="luna" name="luna">
-            <option value="Ianuarie">Ianuarie</option>
-            <option value="Februarie">Februarie</option>
-            <option value="Martie">Martie</option>
-            <option value="Aprilie">Aprilie</option>
-            <option value="Mai">Mai</option>
-            <option value="Iunie">Iunie</option>
-            <option value="Iulie">Iulie</option>
-            <option value="August">August</option>
-            <option value="Septembrie">Septembrie</option>
-            <option value="Octombrie">Octombrie</option>
-            <option value="Noiembrie">Noiembrie</option>
-            <option value="Decembrie">Decembrie</option>
-        </select>
-    </div>
-
-    <div>
-        <label for="nume">Numele persoanei:</label>
-        <input type="text" id="nume" name="nume" required>
-    </div>
-
+    <h1>Engagement Model Excel - Ianuarie 2025</h1>
     <table>
         <thead>
-            <tr>
-                <th>Activitate</th>
-                <th>Implicare</th>
+            <tr class="header-row">
+                <th>Rol</th>
+                <th>Name</th>
+                <th>Activitati Non-rutina</th>
+                <th>Participare in Săptămâna Globală EHS 2025</th>
+                <th>Lista de verificare SIF</th>
+                <th>Walk-through (tur de inspecție)</th>
+                <th>Participarea la revizuirea prevenirii SIF</th>
+                <th>Instruire tip tool box</th>
+                <th>New Colleague Integration Mentor</th>
+                <th>Desfășurarea trainingului LCS</th>
+                <th>Aplicarea autorității de oprire a lucrului</th>
+                <th>Raportare Near Miss</th>
+                <th>Raportare Conditie/Actiune Nesigura</th>
+                <th>Crearea / Revizuirea ESLP Permis LCS</th>
+                <th>Audituri</th>
+                <th>Participarea echipei CSD</th>
+                <th>Participarea la MOC</th>
+                <th>Participarea in echipa de investigatie</th>
+                <th>Total implicari/angajamente</th>
+                <th>Total colegii implicați</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Activitățile rămân aceleași -->
-            <!-- Exemplu activitate -->
             <tr>
-                <td>Activitati Non-rutina (ex: instalare echipamente noi)</td>
-                <td><input type="number" name="activitate1" value="0" min="0"></td>
+                <td>O</td>
+                <td>AGAPIE COSTEL</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>4</td>
+                <td>6</td>
             </tr>
-            <!-- (restul activităților sunt la fel) -->
+            <tr>
+                <td>O</td>
+                <td>MANEA MARIAN</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>O</td>
+                <td>MANEA SORIN</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>O</td>
+                <td>BURUIANA NECULAI</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <!-- Add more rows here for each participant -->
         </tbody>
     </table>
-
-    <button type="button" onclick="calculeazaTotal()">Calculează</button>
-    <button type="button" onclick="adaugaPersoana()">Adaugă persoană</button>
-    <br><br>
-    
-    <h2>Total colegii implicați: <span id="totalPersoane">0</span></h2>
-
-    <button type="button" onclick="exportaPDF()">Exportă PDF</button>
-</div>
-
-<!-- Imagina folosind link-ul brut de pe GitHub -->
-<script>
-    var persoane = [];
-
-    function calculeazaTotal() {
-        var totalImplicari = 0;
-        var totalCollegi = 0;
-
-        for (var i = 1; i <= 16; i++) {
-            var implicare = parseInt(document.querySelector(`[name='activitate${i}']`).value);
-            if (!isNaN(implicare)) {
-                totalImplicari += implicare;
-                if (implicare > 0) {
-                    totalCollegi++;
-                }
-            }
-        }
-
-        document.getElementById('totalImplicari').value = totalImplicari;
-        document.getElementById('totalCollegi').value = totalCollegi;
-    }
-
-    function adaugaPersoana() {
-        var nume = document.getElementById('nume').value;
-        var luna = document.getElementById('luna').value;
-        if (nume === '') {
-            alert("Te rog să introduci un nume.");
-            return;
-        }
-
-        var implicari = 0;
-        var colegiImplicati = 0;
-        for (var i = 1; i <= 16; i++) {
-            implicari += parseInt(document.querySelector(`[name='activitate${i}']`).value) || 0;
-            if (parseInt(document.querySelector(`[name='activitate${i}']`).value) > 0) {
-                colegiImplicati++;
-            }
-        }
-
-        persoane.push({ nume, luna, implicari, colegiImplicati });
-        document.getElementById('totalPersoane').textContent = persoane.length;
-        
-        // Clear the form for next person
-        document.getElementById('nume').value = '';
-        for (var i = 1; i <= 16; i++) {
-            document.querySelector(`[name='activitate${i}']`).value = 0;
-        }
-    }
-
-    function exportaPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        // Folosind URL-ul complet al imaginii din GitHub
-        var logoURL = "https://raw.githubusercontent.com/username/repository/branch/path/to/adm_logo.png";
-
-        doc.addImage(logoURL, 'PNG', 170, 10, 30, 30);
-
-        doc.text("Raport Engagement - Formular 2025", 10, 10);
-        doc.text("Total persoane implicate: " + persoane.length, 10, 20);
-
-        let y = 30;
-        for (let i = 0; i < persoane.length; i++) {
-            let persoana = persoane[i];
-            doc.text(`Persoana: ${persoana.nume} (${persoana.luna})`, 10, y);
-            doc.text(`Total implicări: ${persoana.implicari}`, 10, y + 10);
-            doc.text(`Colegi implicați: ${persoana.colegiImplicati}`, 10, y + 20);
-            y += 30;
-        }
-
-        doc.save('raport_engagement.pdf');
-    }
-</script>
-
 </body>
 </html>
