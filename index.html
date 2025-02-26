@@ -128,7 +128,7 @@
     <div class="container">
         <!-- Cele 9 silozuri -->
         <script>
-            // Stocăm valorile anterioare și istoricul pentru trend
+            // Stocăm valorile anterioare și istoricul pentru trend
             let valorileAnterioare = Array(10).fill(0);
             let istoricValori = Array(10).fill().map(() => Array(10).fill(0));
             
@@ -137,27 +137,27 @@
                 .then(response => response.json())
                 .then(data => {
                     for (let i = 1; i <= 9; i++) {
-                        // Salvăm tipul de produs curent înainte de recalculare
-                        const tipProdusCurent = document.getElementById(tipProdus${i}).value;
-                        const greutateHLCurenta = document.getElementById(greutateHL${i}).value;
+                        // Salvăm tipul de produs curent înainte de recalculare
+                        const tipProdusCurent = document.getElementById(`tipProdus${i}`).value;
+                        const greutateHLCurenta = document.getElementById(`greutateHL${i}`).value;
                         
-                        // Actualizăm Spațiul Gol Măsurat cu datele din registrele Modbus
-                        const spatiuGolMasurat = data[reg${i-1}] / 100; // Presupunând că valorile sunt în centimetri, le împărțim la 100 pentru a obține metri
-                        document.getElementById(spatiuGol${i}).value = spatiuGolMasurat.toFixed(2);
+                        // Actualizăm Spațiul Gol Măsurat cu datele din registrele Modbus
+                        const spatiuGolMasurat = data[`reg${i-1}`] / 100; // Presupunând că valorile sunt în centimetri, le împărțim la 100 pentru a obține metri
+                        document.getElementById(`spatiuGol${i}`).value = spatiuGolMasurat.toFixed(2);
                         
-                        // Restaurăm tipul de produs și greutatea hectolitrică
+                        // Restaurăm tipul de produs și greutatea hectolitrică
                         if (tipProdusCurent && tipProdusCurent !== "undefined") {
-                            document.getElementById(tipProdus${i}).value = tipProdusCurent;
+                            document.getElementById(`tipProdus${i}`).value = tipProdusCurent;
                         }
                         if (greutateHLCurenta && greutateHLCurenta !== "0") {
-                            document.getElementById(greutateHL${i}).value = greutateHLCurenta;
+                            document.getElementById(`greutateHL${i}`).value = greutateHLCurenta;
                         }
                         
-                        // Recalculăm
+                        // Recalculăm
                         calculeazaSiloz(i);
                     }
                 })
-                .catch(error => console.error('Eroare la obținerea datelor Modbus:', error));
+                .catch(error => console.error('Eroare la obținerea datelor Modbus:', error));
             }
 
             setInterval(fetchModbusData, 2000); // Actualizare la fiecare 2 secunde
@@ -169,38 +169,38 @@
                             <h3>Siloz S${i}</h3>
                         </div>
                         <div class="input-group">
-                            <label>Rază cilindru (m):</label>
+                            <label>Rază cilindru (m):</label>
                             <input type="number" id="razaCilindru${i}" value="11.17" onchange="calculeazaSiloz(${i})">
                         </div>
                         <div class="input-group">
-                            <label>Înălțime cilindru (m):</label>
+                            <label>Înălțime cilindru (m):</label>
                             <input type="number" id="inaltimeCilindru${i}" value="16.40" onchange="calculeazaSiloz(${i})">
                         </div>
                         <div class="input-group">
-                            <label>Rază con (m):</label>
+                            <label>Rază con (m):</label>
                             <input type="number" id="razaCon${i}" value="11.17" onchange="calculeazaSiloz(${i})">
                         </div>
                         <div class="input-group">
-                            <label>Înălțime con (m):</label>
+                            <label>Înălțime con (m):</label>
                             <input type="number" id="inaltimeCon${i}" value="6.50" onchange="calculeazaSiloz(${i})">
                         </div>
                         <div class="input-group">
                             <label>Tip Produs:</label>
                             <select id="tipProdus${i}" onchange="calculeazaSiloz(${i})">
-                                <option value="grau">Grâu</option>
+                                <option value="grau">Grâu</option>
                                 <option value="porumb">Porumb</option>
-                                <option value="rapita">Rapiță</option>
+                                <option value="rapita">Rapiță</option>
                                 <option value="orz">Orz</option>
                                 <option value="floarea-soarelui">Floarea Soarelui</option>
-                                <option value="fara">Fără Produs</option>
+                                <option value="fara">Fără Produs</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Greutate Hectolitrică (kg/hl):</label>
+                            <label>Greutate Hectolitrică (kg/hl):</label>
                             <input type="number" id="greutateHL${i}" value="75" onchange="calculeazaSiloz(${i})">
                         </div>
                         <div class="input-group">
-                            <label>Spațiu Gol Măsurat (m):</label>
+                            <label>Spațiu Gol Măsurat (m):</label>
                             <input type="number" id="spatiuGol${i}" value="0" readonly>
                         </div>
                         <div class="progress-container">
@@ -221,7 +221,7 @@
                             </p>
                         </div>
                         <div class="trend-chart" id="trendChart${i}">
-                            <!-- Punctele și liniile pentru trend vor fi adăugate dinamic -->
+                            <!-- Punctele și liniile pentru trend vor fi adăugate dinamic -->
                         </div>
                         <div class="results">
                             <p>Volum Total: <span id="volumTotal${i}" class="value">0</span> m³</p>
@@ -244,25 +244,25 @@
             'fara': '#cccccc'
         };
 
-        // Inițializarea istoricului pentru fiecare siloz
+        // Inițializarea istoricului pentru fiecare siloz
         for (let i = 1; i <= 9; i++) {
             istoricValori[i] = Array(10).fill(0);
         }
 
         function calculeazaSiloz(index) {
-            const razaCilindru = parseFloat(document.getElementById(razaCilindru${index}).value);
-            const inaltimeCilindru = parseFloat(document.getElementById(inaltimeCilindru${index}).value);
-            const razaCon = parseFloat(document.getElementById(razaCon${index}).value);
-            const inaltimeCon = parseFloat(document.getElementById(inaltimeCon${index}).value);
-            const spatiuGol = parseFloat(document.getElementById(spatiuGol${index}).value);
-            const greutateHL = parseFloat(document.getElementById(greutateHL${index}).value);
-            const tipProdus = document.getElementById(tipProdus${index}).value;
+            const razaCilindru = parseFloat(document.getElementById(`razaCilindru${index}`).value);
+            const inaltimeCilindru = parseFloat(document.getElementById(`inaltimeCilindru${index}`).value);
+            const razaCon = parseFloat(document.getElementById(`razaCon${index}`).value);
+            const inaltimeCon = parseFloat(document.getElementById(`inaltimeCon${index}`).value);
+            const spatiuGol = parseFloat(document.getElementById(`spatiuGol${index}`).value);
+            const greutateHL = parseFloat(document.getElementById(`greutateHL${index}`).value);
+            const tipProdus = document.getElementById(`tipProdus${index}`).value;
 
             const volumCilindru = Math.PI * Math.pow(razaCilindru, 2) * inaltimeCilindru;
             const volumCon = (1/3) * Math.PI * Math.pow(razaCon, 2) * inaltimeCon;
             const volumTotal = volumCilindru + volumCon;
             
-            // Corectarea calculului pentru spațiul gol
+            // Corectarea calculului pentru spațiul gol
             let volumGol = 0;
             if (spatiuGol > 0) {
                 volumGol = Math.PI * Math.pow(razaCilindru, 2) * spatiuGol;
@@ -270,10 +270,10 @@
             
             const volumOcupat = volumTotal - volumGol;
             
-            // Calculăm procentul de umplere corect (100% când nu există spațiu gol)
+            // Calculăm procentul de umplere corect (100% când nu există spațiu gol)
             const procentUmplere = (volumOcupat / volumTotal) * 100;
             
-            // Verificăm dacă există produs definit
+            // Verificăm dacă există produs definit
             let hectolitri = volumOcupat * 10;
             let tone = 0;
             
@@ -281,30 +281,30 @@
                 tone = (hectolitri * greutateHL) / 1000;
             }
 
-            const progressArc = document.getElementById(progressArc${index});
+            const progressArc = document.getElementById(`progressArc${index}`);
             if (progressArc) {
-                progressArc.style.strokeDasharray = ${(410 * procentUmplere) / 100} 410;
+                progressArc.style.strokeDasharray = `${(410 * procentUmplere) / 100} 410`;
                 progressArc.style.stroke = CULORI_PRODUSE[tipProdus];
             }
 
-            document.getElementById(percentageText${index}).textContent = ${procentUmplere.toFixed(1)}%;
-            document.getElementById(ocupatText${index}).textContent = Ocupat: ${tone.toFixed(1)} t;
-            document.getElementById(liberText${index}).textContent = Liber: ${((volumTotal - volumOcupat) * greutateHL * 0.01).toFixed(1)} t;
-            document.getElementById(volumTotal${index}).textContent = volumTotal.toFixed(2);
-            document.getElementById(volumOcupat${index}).textContent = volumOcupat.toFixed(2);
-            document.getElementById(cantitate${index}).textContent = tone.toFixed(1);
-            document.getElementById(cantitateTone${index}).textContent = Cantitate: ${tone.toFixed(1)} t;
+            document.getElementById(`percentageText${index}`).textContent = `${procentUmplere.toFixed(1)}%`;
+            document.getElementById(`ocupatText${index}`).textContent = `Ocupat: ${tone.toFixed(1)} t`;
+            document.getElementById(`liberText${index}`).textContent = `Liber: ${((volumTotal - volumOcupat) * greutateHL * 0.01).toFixed(1)} t`;
+            document.getElementById(`volumTotal${index}`).textContent = volumTotal.toFixed(2);
+            document.getElementById(`volumOcupat${index}`).textContent = volumOcupat.toFixed(2);
+            document.getElementById(`cantitate${index}`).textContent = tone.toFixed(1);
+            document.getElementById(`cantitateTone${index}`).textContent = `Cantitate: ${tone.toFixed(1)} t`;
             
-            // Actualizăm trendul
+            // Actualizăm trendul
             actualizeazaTrend(index, tone);
         }
         
         function actualizeazaTrend(index, valoareCurenta) {
-            // Adăugăm valoarea curentă în istoricul de valori
+            // Adăugăm valoarea curentă în istoricul de valori
             istoricValori[index].push(valoareCurenta);
-            istoricValori[index].shift(); // Eliminăm cea mai veche valoare
+            istoricValori[index].shift(); // Eliminăm cea mai veche valoare
             
-            // Determinăm tendința
+            // Determinăm tendința
             const valoareAnterioara = valorileAnterioare[index];
             let tendinta = 'neutral';
             let simbolTendinta = '⟼';
@@ -317,52 +317,52 @@
                 simbolTendinta = '↓';
             }
             
-            // Actualizăm indicatorul de trend
-            const trendIndicator = document.getElementById(trendIndicator${index});
+            // Actualizăm indicatorul de trend
+            const trendIndicator = document.getElementById(`trendIndicator${index}`);
             trendIndicator.textContent = simbolTendinta;
-            trendIndicator.className = trend-indicator trend-${tendinta};
+            trendIndicator.className = `trend-indicator trend-${tendinta}`;
             
-            // Actualizăm graficul de trend
+            // Actualizăm graficul de trend
             actualizeazaGraficTrend(index);
             
-            // Salvăm valoarea curentă pentru comparația viitoare
+            // Salvăm valoarea curentă pentru comparația viitoare
             valorileAnterioare[index] = valoareCurenta;
         }
         
         function actualizeazaGraficTrend(index) {
-            const trendChart = document.getElementById(trendChart${index});
+            const trendChart = document.getElementById(`trendChart${index}`);
             const width = trendChart.clientWidth;
             const height = trendChart.clientHeight;
             
             // Golim graficul
             trendChart.innerHTML = '';
             
-            // Găsim valorile minime și maxime pentru scalare
+            // Găsim valorile minime și maxime pentru scalare
             const values = istoricValori[index].filter(v => v !== 0);
             if (values.length === 0) return; // Nu avem date suficiente
             
             const min = Math.min(...values);
             const max = Math.max(...values);
-            const range = max - min || 1; // Evităm împărțirea la zero
+            const range = max - min || 1; // Evităm împărțirea la zero
             
-            // Adăugăm punctele și liniile pentru trend
+            // Adăugăm punctele și liniile pentru trend
             for (let i = 0; i < istoricValori[index].length; i++) {
                 const value = istoricValori[index][i];
-                if (value === 0) continue; // Sărim peste valorile zero (inițiale)
+                if (value === 0) continue; // Sărim peste valorile zero (inițiale)
                 
-                // Calculăm poziția
+                // Calculăm poziția
                 const x = (i / (istoricValori[index].length - 1)) * width;
                 const normalizedValue = (value - min) / range;
                 const y = height - (normalizedValue * (height - 10)) - 5; // 5px padding
                 
-                // Adăugăm punctul
+                // Adăugăm punctul
                 const point = document.createElement('div');
                 point.className = 'trend-point';
-                point.style.left = ${x}px;
-                point.style.top = ${y}px;
+                point.style.left = `${x}px`;
+                point.style.top = `${y}px`;
                 trendChart.appendChild(point);
                 
-                // Adăugăm linia (dacă nu este primul punct)
+                // Adăugăm linia (dacă nu este primul punct)
                 if (i > 0 && istoricValori[index][i-1] !== 0) {
                     const prevX = ((i-1) / (istoricValori[index].length - 1)) * width;
                     const prevValue = istoricValori[index][i-1];
@@ -372,21 +372,21 @@
                     const line = document.createElement('div');
                     line.className = 'trend-line';
                     
-                    // Calculăm lungimea și unghiul liniei
+                    // Calculăm lungimea și unghiul liniei
                     const length = Math.sqrt(Math.pow(x - prevX, 2) + Math.pow(y - prevY, 2));
                     const angle = Math.atan2(y - prevY, x - prevX) * 180 / Math.PI;
                     
-                    line.style.width = ${length}px;
-                    line.style.left = ${prevX}px;
-                    line.style.top = ${prevY}px;
-                    line.style.transform = rotate(${angle}deg);
+                    line.style.width = `${length}px`;
+                    line.style.left = `${prevX}px`;
+                    line.style.top = `${prevY}px`;
+                    line.style.transform = `rotate(${angle}deg)`;
                     line.style.transformOrigin = 'left center';
                     
-                    // Culoarea liniei în funcție de tendință
+                    // Culoarea liniei în funcție de tendință
                     if (value > prevValue) {
-                        line.style.backgroundColor = '#27ae60'; // verde pentru creștere
+                        line.style.backgroundColor = '#27ae60'; // verde pentru creștere
                     } else if (value < prevValue) {
-                        line.style.backgroundColor = '#e74c3c'; // roșu pentru scădere
+                        line.style.backgroundColor = '#e74c3c'; // roșu pentru scădere
                     }
                     
                     trendChart.appendChild(line);
