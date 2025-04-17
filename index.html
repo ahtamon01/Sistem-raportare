@@ -89,16 +89,25 @@
         
         .recipient {
             width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .recipient-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            width: 250px;
+            height: 250px;
             object-fit: cover;
             border: 5px solid #0056b3;
             margin-bottom: 15px;
             cursor: pointer;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 18px;
         }
         
         .recipient-name {
@@ -193,13 +202,13 @@
             
             <div class="recipients">
                 <div class="recipient">
-                    <img src="https://via.placeholder.com/200x200?text=POZA+1" alt="Poza 1" class="recipient-img" id="photo1">
+                    <div class="recipient-img" id="photo1">POZA 1</div>
                     <div class="recipient-name" contenteditable="true">NUME ȘEF SCHIMB</div>
                     <div class="recipient-position" contenteditable="true">Șef de Schimb - Terminal Agigea</div>
                 </div>
                 
                 <div class="recipient">
-                    <img src="https://via.placeholder.com/200x200?text=POZA+2" alt="Poza 2" class="recipient-img" id="photo2">
+                    <div class="recipient-img" id="photo2">POZA 2</div>
                     <div class="recipient-name" contenteditable="true">NUME ȘEF SCHIMB</div>
                     <div class="recipient-position" contenteditable="true">Șef de Schimb - Terminal Agigea</div>
                 </div>
@@ -238,7 +247,11 @@
                 const file = e.target.files[0];
                 const reader = new FileReader();
                 reader.onload = event => {
-                    document.getElementById(`photo${personNumber}`).src = event.target.result;
+                    const photoDiv = document.getElementById(`photo${personNumber}`);
+                    photoDiv.innerHTML = '';
+                    photoDiv.style.backgroundImage = `url(${event.target.result})`;
+                    photoDiv.style.backgroundSize = 'cover';
+                    photoDiv.style.backgroundPosition = 'center';
                 };
                 reader.readAsDataURL(file);
             };
